@@ -1,0 +1,33 @@
+{
+  "GlobalConfiguration": {
+    "AdministrationPath": "/administration",
+    "RequestIdKey": "OcRequestId",
+    "ServiceDiscoveryProvider": {
+      "Host": "consul.server",
+      "Port": 8500,
+      "Type": "consul"
+    }
+  },
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v1/s/{everything}",
+      "UpstreamHttpMethod": [],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "student.api",
+          "Port": 80
+        }
+      ],
+      "UseServiceDiscovery": true,
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    }   
+  ]
+}
